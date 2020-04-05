@@ -1,6 +1,7 @@
 package com.chausov.sql.generator;
 
 import com.chausov.sql.generator.model.DatabaseModel;
+import com.chausov.sql.generator.model.DatabaseModelUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +26,7 @@ class SqlSelectGeneratorImpl implements SqlSelectGenerator {
         Objects.requireNonNull(tablePattern);
         Objects.requireNonNull(query);
         var pattern = Pattern.compile(tablePattern);
-        var allTableModels = databaseModel.getAllTableModels();
+        var allTableModels = DatabaseModelUtils.getAllTableModels(databaseModel);
         var queryBuilder = new SelectQueryBuilder(caseSensitive, query);
         return allTableModels.entrySet().stream()
                 .filter(entry -> pattern.matcher(entry.getKey()).matches())
